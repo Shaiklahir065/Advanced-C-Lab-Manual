@@ -15,15 +15,61 @@ Else
 6.	Return 0
  
 Program:
-
-//type your code here
-
-
+```
+  #include <stdio.h>
+  #include <string.h>
+  struct Person {
+      char name[50];
+      int age;
+  };
+  int main() {
+      int n;
+      printf("Enter the number of people: ");
+      scanf("%d", &n);
+      struct Person persons[n];
+      for (int i = 0; i < n; i++) {
+          printf("\nEnter details for person %d\n", i + 1);
+          printf("Name: ");
+          scanf("%s", persons[i].name); 
+          printf("Age: ");
+          scanf("%d", &persons[i].age);
+      }
+      printf("\n--- Vaccine Eligibility ---\n");
+      for (int i = 0; i < n; i++) {
+          printf("Name: %s - Age: %d - ", persons[i].name, persons[i].age);
+          if (persons[i].age > 6) {
+              printf("Eligible for Vaccine\n");
+          } else {
+              printf("Not Eligible for Vaccine\n");
+          }
+      }
+  
+      return 0;
+  }
+```
 Output:
+```
 
-//paste your output here
+Enter the number of people: 3
 
+Enter details for person 1
+Name: jay
+Age: 5
 
+Enter details for person 2
+Name: shah
+Age: 6
+
+Enter details for person 3
+Name: harish
+Age: 10
+
+--- Vaccine Eligibility ---
+Name: jay - Age: 5 - Not Eligible for Vaccine
+Name: shah - Age: 6 - Not Eligible for Vaccine
+Name: harish - Age: 10 - Eligible for Vaccine
+
+```
 Result:
 Thus, the program is verified successfully. 
 
@@ -43,20 +89,52 @@ Algorithm:
 7.	Return 0
  
 Program:
+```
+#include <stdio.h>
+#include <string.h>
+struct Person {
+    char name[50];
+    int age;
+};
+struct Person updatePerson(struct Person p) {
+    p.age += 1; 
+    strcat(p.name, " Jr.");
+    return p;
+}
+void displayPerson(struct Person p) {
+    printf("Name: %s\n", p.name);
+    printf("Age: %d\n", p.age);
+}
 
-//type your code here
+int main() {
+    struct Person person1;
+    printf("Enter name: ");
+    scanf("%s", person1.name); 
+    printf("Enter age: ");
+    scanf("%d", &person1.age);
+    printf("\nBefore update:\n");
+    displayPerson(person1);
+    person1 = updatePerson(person1);
 
+    printf("\nAfter update:\n");
+    displayPerson(person1);
 
-
-
+    return 0;
+}
+```
 Output:
+```
+Enter name: sree
+Enter age: 12
 
+Before update:
+Name: sree
+Age: 12
 
-//paste your output here
-
-
-
-
+After update:
+Name: sree Jr.
+Age: 13
+```
 Result:
 Thus, the program is verified successfully
 
@@ -85,27 +163,35 @@ Use scanf to input the file name into the name array.
 5.	Return 0 to indicate successful program execution.
  
 Program:
+```
+#include <stdio.h>
+int main() {
+    char filename[100];
+    FILE *file;
+    char ch;
+    printf("Enter the file name: ");
+    scanf("%s", filename);  
+    file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("Error: Cannot open file %s\n", filename);
+        return 1;
+    }
+    printf("\nContents of the file %s:\n\n", filename);
+    while ((ch = fgetc(file)) != EOF) {
+        putchar(ch);
+    }
+    fclose(file);
 
-//type your code here
-
-
-
+    return 0;
+}
+```
 
 Output:
-
-
-//paste your output here
-
-
-
-
-
-
-
-
-
-
-
+```
+Enter the file name: example.txt
+ERROR!
+Error: Cannot open file example.txt
+```
 Result:
 Thus, the program is verified successfully
  
@@ -132,18 +218,52 @@ Use scanf to input the file name into the name array and the number of strings i
 5.	Return 0 to indicate successful program execution.
  
 Program:
+```
+#include <stdio.h>
+#include <stdlib.h>
+int main() {
+    char filename[100];
+    char text[500];
+    FILE *file;
+    char ch;
+    printf("Enter the file name: ");
+    scanf("%s", filename);
+    file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("Error: Could not open file %s for reading.\n", filename);
+        return 1;
+    }
+    printf("\nCurrent contents of %s:\n\n", filename);
+    while ((ch = fgetc(file)) != EOF) {
+        putchar(ch);
+    }
+    fclose(file);
+    file = fopen(filename, "a");
+    if (file == NULL) {
+        printf("Error: Could not open file %s for appending.\n", filename);
+        return 1;
+    }
+    printf("\n\nEnter the text to append to the file:\n");
+    getchar(); 
+    fgets(text, sizeof(text), stdin);
+    fclose(file);
 
-//type your code here
+    printf("\nText successfully appended to %s.\n", filename);
 
+    return 0;
+}
+```
 
 
 
 Output:
+```
 
+Enter the file name: text file
+ERROR!
+Error: Could not open file text for reading.
 
-//paste your output here
-
-
+```
 
 
 
@@ -186,17 +306,43 @@ Algorithm:
 13.End the program by returning 0.
 
 Program:
+```
+#include <stdio.h>
+struct Student {
+    int rollNo;
+    char name[50];
+    float marks;
+};
+int main() {
+    struct Student s;
+    printf("Enter student roll number: ");
+    scanf("%d", &s.rollNo);
+    printf("Enter student name: ");
+    scanf("%s", s.name);
+    printf("Enter student marks: ");
+    scanf("%f", &s.marks);
+    printf("\n--- Student Details ---\n");
+    printf("Roll Number: %d\n", s.rollNo);
+    printf("Name: %s\n", s.name);
+    printf("Marks: %.2f\n", s.marks);
 
-//type your code here
-
+    return 0;
+}
+```
 
 
 
 Output:
+```
+Enter student roll number: 12
+Enter student name: shafi
+Enter student marks: 100
 
-
-//paste your output here
-
+--- Student Details ---
+Roll Number: 12
+Name: shafi
+Marks: 100.00
+```
 
 
 

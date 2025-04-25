@@ -15,18 +15,43 @@ Algorithm:
 4.	Exit the program.
  
 Program:
-
-//type your code here
-
+```
+#include <stdio.h>
+int main() {
+    int num;
+    printf("Enter a number (1-10): ");
+    scanf("%d", &num);
+    printf("The word for %d is: ", num);
+    switch (num) {
+        case 1:  printf("one"); break;
+        case 2:  printf("two"); break;
+        case 3:  printf("three"); break;
+        case 4:  printf("four"); break;
+        case 5:  printf("five"); break;
+        case 6:  printf("six"); break;
+        case 7:  printf("seven"); break;
+        case 8:  printf("eight"); break;
+        case 9:  printf("nine"); break;
+        case 10: printf("ten"); break;
+        default: printf("invalid input! Please enter number from 1 to 10.");
+    }
+    printf("\n");
+    return 0;
+}
+```
 
 
 
 Output:
+```
+Enter a number (1-10): 6
+The word for 6 is: six
 
 
-//paste your output here
+Enter a number (1-10): 12
+The word for 12 is: invalid input! Please enter number from 1 to 10.
 
-
+```
 
 
 
@@ -47,19 +72,39 @@ Algorithm:
  
 Program:
 
-//type your code here
-
-
+```
+#include <stdio.h>
+#include <string.h>
+int main() {
+    char input[100];
+    int freq[10] = {0};
+    printf("Enter a string of digits: ");
+    scanf("%s", input);
+    for (int i = 0; input[i] != '\0'; i++) {
+        if (input[i] >= '0' && input[i] <= '3') {
+            int digit = input[i] - '0';
+            freq[digit]++;
+        }
+    }
+    for (int i = 0; i < 10; i++) {
+        printf("%d ", freq[i]);
+    }
+    printf("\n");
+    return 0;
+}
+```
 
 
 Output:
 
 
-//paste your output here
+```
+Enter a string of digits: 3
+0 0 0 1 0 0 0 0 0 0 
 
-
-
-
+Enter a string of digits: 15
+0 1 0 0 0 0 0 0 0 0 
+```
 
 
 Result:
@@ -84,18 +129,70 @@ Free the memory allocated for each string in s Free the memory allocated for s
  
 Program:
 
-//type your code here
-
-
+```
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+void swap(char *x, char *y) {
+    char temp = *x;
+    *x = *y;
+    *y = temp;
+}
+int compare(const void *a, const void *b) {
+    return (*(char *)a - *(char *)b);
+}
+void reverse(char *str, int start, int end) {
+    while (start < end) {
+        swap(&str[start], &str[end]);
+        start++;
+        end--;
+    }
+}
+int nextPermutation(char *str, int len) {
+    int i = len - 2;
+    while (i >= 0 && str[i] >= str[i + 1]) {
+        i--;
+    }
+    if (i < 0) {
+        return 0;
+    }
+    int j = len - 1;
+    while (str[j] <= str[i]) {
+        j--;
+    }
+    swap(&str[i], &str[j]);
+    reverse(str, i + 1, len - 1);
+    return 1;
+}
+int main() {
+    char str[100];
+    printf("Enter a string: ");
+    scanf("%s", str);
+    int len = strlen(str);
+    qsort(str, len, sizeof(char), compare);
+    do {
+        printf("%s\n", str);
+    } while (nextPermutation(str, len));
+    return 0;
+}
+```
 
 
 Output:
 
+```
+Enter a string: 21
+12
+21
 
-//paste your output here
-
-
-
+Enter a string: 142
+124
+142
+214
+241
+412
+421
+```
 
 
 
@@ -116,19 +213,43 @@ Algorithm:
 7.	End
  
 Program:
-
-//type your code here
-
+```
+#include <stdio.h>
+int main() {
+    int n, i, j, num = 1;
+    printf("Enter a value for N: ");
+    scanf("%d", &n);
+    for (i = 1; i <= n; i++) {
+        for (j = 1; j <= i; j++) {
+            printf("%d ", num);
+            num++;
+        }
+        printf("\n");
+    }
+    return 0;
+}
+```
 
 
 
 Output:
 
 
-//paste your output here
-
-
-
+```
+Enter a value for N: 12
+1 
+2 3 
+4 5 6 
+7 8 9 10 
+11 12 13 14 15 
+16 17 18 19 20 21 
+22 23 24 25 26 27 28 
+29 30 31 32 33 34 35 36 
+37 38 39 40 41 42 43 44 45 
+46 47 48 49 50 51 52 53 54 55 
+56 57 58 59 60 61 62 63 64 65 66 
+67 68 69 70 71 72 73 74 75 76 77 78 
+```
 
 
 
@@ -155,19 +276,32 @@ o	Call the square() function and display the result.
 5.	End.
 
 Program:
-
-//type your code here
-
+```
+#include <stdio.h>
+int square() {
+    int num;
+    printf("Enter a number: ");
+    scanf("%d", &num);
+    return num * num;
+}
+int main() {
+    int result;
+    result = square(); 
+    printf("The square of the number is: %d\n", result);
+    return 0;
+}
+```
 
 
 
 Output:
+```
+Enter a number: 99
+The square of the number is: 9801
 
-
-//paste your output here
-
-
-
+Enter a number: 1001
+The square of the number is: 1002001
+```
 
 
 

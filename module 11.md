@@ -12,11 +12,30 @@ Algorithm:
 5.	Call the max_of_four function with the input integers and store the result in the greater variable
  
 Program:
-//type your code here
+```
+#include <stdio.h>
 
+int greatest(int a, int b, int c) {
+    if (a >= b && a >= c) return a;
+    else if (b >= a && b >= c) return b;
+    else return c;
+}
+
+int main() {
+    int num1, num2, num3;
+    
+    scanf("%d %d %d", &num1, &num2, &num3);
+    printf("The greatest number is: %d\n", greatest(num1, num2, num3));
+    
+    return 0;
+}
+```
 Output:
-//paste your output here
+```
+10 20 15
 
+The greatest number is: 20
+```
 Result:
 Thus, the program  that create a function to find the greatest number is verified successfully.
 
@@ -36,11 +55,27 @@ Algorithm:
 7.	Call the calculate_the_max function with input values.
  
 Program:
-//type your code here
+```
+#include <stdio.h>
+
+int main() {
+    int num1, num2;
+    scanf("%d %d", &num1, &num2);
+    printf("AND: %d\n", num1 & num2);
+    printf("OR: %d\n", num1 | num2);
+    printf("XOR: %d\n", num1 ^ num2);
+    return 0;
+}
+```
 
 Output:
-//paste your output here
+```
+5 3
 
+AND: 1
+OR: 7
+XOR: 6
+```
 Result:
 Thus, the program to print the maximum values for the AND, OR and XOR comparisons
 is verified successfully.
@@ -59,11 +94,109 @@ Algorithm:
 5.	Use a for loop to iterate over the queries.
  
 Program:
-//type your code here
+```
+#include <stdio.h>
 
+void addNumbers() {
+    int a, b;
+    printf("Enter two numbers to add: ");
+    scanf("%d %d", &a, &b);
+    printf("Sum: %d\n", a + b);
+}
+
+void subtractNumbers() {
+    int a, b;
+    printf("Enter two numbers to subtract: ");
+    scanf("%d %d", &a, &b);
+    printf("Difference: %d\n", a - b);
+}
+
+void greatestNumber() {
+    int a, b;
+    printf("Enter two numbers to find the greatest: ");
+    scanf("%d %d", &a, &b);
+    if (a >= b)
+        printf("Greatest: %d\n", a);
+    else
+        printf("Greatest: %d\n", b);
+}
+
+int main() {
+    int choice;
+
+    while(1) {
+        printf("\nMenu:\n");
+        printf("1. Add Numbers\n");
+        printf("2. Subtract Numbers\n");
+        printf("3. Find Greatest Number\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch(choice) {
+            case 1:
+                addNumbers();
+                break;
+            case 2:
+                subtractNumbers();
+                break;
+            case 3:
+                greatestNumber();
+                break;
+            case 4:
+                printf("Exiting...\n");
+                return 0;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    }
+}
+```
 Output:
-//paste your output here
+```
+1
+5 3
+2
+10 5
+3
+12 15
+4
 
+Menu:
+1. Add Numbers
+2. Subtract Numbers
+3. Find Greatest Number
+4. Exit
+Enter your choice: 1
+Enter two numbers to add: 5 3
+Sum: 8
+
+Menu:
+1. Add Numbers
+2. Subtract Numbers
+3. Find Greatest Number
+4. Exit
+Enter your choice: 2
+Enter two numbers to subtract: 10 5
+Difference: 5
+
+Menu:
+1. Add Numbers
+2. Subtract Numbers
+3. Find Greatest Number
+4. Exit
+Enter your choice: 3
+Enter two numbers to find the greatest: 12 15
+Greatest: 15
+
+Menu:
+1. Add Numbers
+2. Subtract Numbers
+3. Find Greatest Number
+4. Exit
+Enter your choice: 4
+Exiting...
+```
 
 Result:
 Thus, the program to write the logic for the requests is verified successfully.
@@ -86,11 +219,37 @@ Algorithm:
 
 
 Program:
-//type your code here
+```
+#include <stdio.h>
 
+int main() {
+    int n, sum = 0;
+
+    printf("Enter the number of elements: ");
+    scanf("%d", &n);
+
+    int arr[n];
+    
+    printf("Enter %d integers: ", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    for (int i = 0; i < n; i++) {
+        sum += arr[i];
+    }
+
+    printf("Sum of the integers in the array: %d\n", sum);
+    return 0;
+}
+```
 Output:
-//paste your output here
+```
+5
+1 2 3 4 5
 
+Sum of the integers in the array: 15
+```
  
 
 
@@ -120,10 +279,48 @@ o	If a character is not a space, it may belong to a word. If it's the first non-
 
 
 Program:
-//type your code here
+```
+#include <stdio.h>
+#include <ctype.h>
+
+int countWords(char str[]) {
+    int count = 0, i = 0;
+    while (str[i]) {
+       
+        while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n') {
+            i++;
+        }
+       
+        if (str[i] != '\0') {
+            count++;
+           
+            while (str[i] != ' ' && str[i] != '\t' && str[i] != '\n' && str[i] != '\0') {
+                i++;
+            }
+        }
+    }
+    return count;
+}
+
+int main() {
+    char sentence[1000];
+    
+    printf("Enter a sentence: ");
+    fgets(sentence, sizeof(sentence), stdin);
+    
+    int wordCount = countWords(sentence);
+    printf("Number of words in the sentence: %d\n", wordCount);
+
+    return 0;
+}
+
 
 Output:
-//paste your output here
+```
+Hello, how are you doing today?
+
+Number of words in the sentence: 5
+```
 
 
 

@@ -9,12 +9,84 @@ Algorithm:
 4.	Call the search function and perform other linked list operations as needed.
  
 Program:
+```
+#include <stdio.h>
+#include <stdlib.h>
 
-//type your code here
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*) malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+void insertEnd(struct Node** head, int data) {
+    struct Node* newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+    struct Node* temp = *head;
+    while (temp->next) temp = temp->next;
+    temp->next = newNode;
+}
+
+int search(struct Node* head, int key) {
+    int pos = 1;
+    while (head) {
+        if (head->data == key) return pos;
+        head = head->next;
+        pos++;
+    }
+    return -1;
+}
+
+void display(struct Node* head) {
+    while (head) {
+        printf("%d -> ", head->data);
+        head = head->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    struct Node* head = NULL;
+    int n, val, key;
+
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &val);
+        insertEnd(&head, val);
+    }
+
+    display(head);
+    scanf("%d", &key);
+
+    int pos = search(head, key);
+    if (pos != -1) printf("Found at position %d\n", pos);
+    else printf("Not found\n");
+
+    return 0;
+}
+```
 
 Output:
-
-//paste your output here
+```
+5
+10
+20
+30
+40
+50
+30
+10 -> 20 -> 30 -> 40 -> 50 -> NULL
+Found at position 3
+```
 
 
 
@@ -33,13 +105,78 @@ Algorithm:
 4.	Call the insert function and perform other linked list operations as needed.
  
 Program:
+```
+#include <stdio.h>
+#include <stdlib.h>
 
-//type your code here
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*) malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+void insertAtPosition(struct Node** head, int data, int pos) {
+    struct Node* newNode = createNode(data);
+    if (pos == 1) {
+        newNode->next = *head;
+        *head = newNode;
+        return;
+    }
+
+    struct Node* temp = *head;
+    for (int i = 1; i < pos - 1 && temp != NULL; i++) {
+        temp = temp->next;
+    }
+
+    if (temp == NULL) {
+        printf("Position out of range\n");
+        free(newNode);
+        return;
+    }
+
+    newNode->next = temp->next;
+    temp->next = newNode;
+}
+
+void display(struct Node* head) {
+    while (head) {
+        printf("%d -> ", head->data);
+        head = head->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    struct Node* head = NULL;
+    int n, value, pos;
+
+    scanf("%d", &n);  // number of initial nodes
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &value);
+        insertAtPosition(&head, value, i + 1);  // insert at end
+    }
+
+    scanf("%d %d", &value, &pos);  // new value and position
+    insertAtPosition(&head, value, pos);
+
+    display(head);
+    return 0;
+}
+```
 
 Output:
-
-//paste your output here
-
+```
+4
+10 20 30 40
+25 3
+10 -> 20 -> 25 -> 30 -> 40 -> NULL
+```
  
 Result:
 Thus, the program to insert a node in a linked list is verified successfully.
@@ -57,13 +194,84 @@ Algorithm:
 4.	Move to the next node by updating the temp pointer to point to the next node (temp = temp->next).
  
 Program:
+```
+#include <stdio.h>
+#include <stdlib.h>
 
-//type your code here
+struct Node {
+    int data;
+    struct Node* prev;
+    struct Node* next;
+};
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*) malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->prev = NULL;
+    newNode->next = NULL;
+    return newNode;
+}
+
+void insertEnd(struct Node** head, int data) {
+    struct Node* newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+    struct Node* temp = *head;
+    while (temp->next) temp = temp->next;
+    temp->next = newNode;
+    newNode->prev = temp;
+}
+
+void traverseForward(struct Node* head) {
+    printf("Forward: ");
+    while (head) {
+        printf("%d ", head->data);
+        if (head->next == NULL) break;
+        head = head->next;
+    }
+    printf("\n");
+}
+
+void traverseBackward(struct Node* tail) {
+    printf("Backward: ");
+    while (tail) {
+        printf("%d ", tail->data);
+        tail = tail->prev;
+    }
+    printf("\n");
+}
+
+int main() {
+    struct Node* head = NULL;
+    int n, val;
+
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &val);
+        insertEnd(&head, val);
+    }
+
+    struct Node* tail = head;
+    while (tail && tail->next) tail = tail->next;
+
+    traverseForward(head);
+    traverseBackward(tail);
+
+    return 0;
+}
+```
 
 Output:
+```
+5
+10 20 30 40 50
 
-//paste your output here
+Forward: 10 20 30 40 50 
+Backward: 50 40 30 20 10 
 
+```
 
 Result:
 Thus, the program to traverse a doubly linked list is verified successfully. 
@@ -82,13 +290,83 @@ Algorithm:
 5.	Set the new node's prev pointer to the last node and update the last node's next pointer to the new node.
  
 Program:
+```
+#include <stdio.h>
+#include <stdlib.h>
 
-//type your code here
+struct Node {
+    int data;
+    struct Node* prev;
+    struct Node* next;
+};
 
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*) malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->prev = NULL;
+    newNode->next = NULL;
+    return newNode;
+}
+
+void insertAtPosition(struct Node** head, int data, int pos) {
+    struct Node* newNode = createNode(data);
+    if (pos == 1) {
+        newNode->next = *head;
+        if (*head != NULL)
+            (*head)->prev = newNode;
+        *head = newNode;
+        return;
+    }
+
+    struct Node* temp = *head;
+    for (int i = 1; i < pos - 1 && temp != NULL; i++) {
+        temp = temp->next;
+    }
+
+    if (temp == NULL) {
+        printf("Position out of range\n");
+        free(newNode);
+        return;
+    }
+
+    newNode->next = temp->next;
+    newNode->prev = temp;
+
+    if (temp->next != NULL)
+        temp->next->prev = newNode;
+
+    temp->next = newNode;
+}
+
+void display(struct Node* head) {
+    while (head) {
+        printf("%d <-> ", head->data);
+        head = head->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    struct Node* head = NULL;
+    int n, val, data, pos;
+
+    scanf("%d", &n); // number of initial nodes
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &val);
+        insertAtPosition(&head, val, i + 1); // insert at end
+    }
+
+    scanf("%d %d",
+
+```
 Output:
+```
+4
+10 20 40 50
+30 3
 
-//paste your output here
-
+10 <-> 20 <-> 30 <-> 40 <-> 50 <-> NULL
+```
 
 Result:
 Thus, the program to insert an element in doubly linked list is verified successfully.
@@ -124,13 +402,78 @@ o	If the element is not found in any node, print a message indicating the elemen
 
 
 Program:
+```
+#include <stdio.h>
+#include <stdlib.h>
 
-//type your code here
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*) malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+void insertEnd(struct Node** head, int data) {
+    struct Node* newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+    struct Node* temp = *head;
+    while (temp->next) temp = temp->next;
+    temp->next = newNode;
+}
+
+void deleteElement(struct Node** head, int key) {
+    struct Node* temp = *head;
+    struct Node* prev = NULL;
+    while (temp && temp->data != key) {
+        prev = temp;
+        temp = temp->next;
+    }
+    if (!temp) return;
+    if (!prev) *head = temp->next;
+    else prev->next = temp->next;
+    free(temp);
+}
+
+void display(struct Node* head) {
+    while (head) {
+        printf("%d -> ", head->data);
+        head = head->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    struct Node* head = NULL;
+    int n, val, delVal;
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &val);
+        insertEnd(&head, val);
+    }
+    scanf("%d", &delVal);
+    deleteElement(&head, delVal);
+    display(head);
+    return 0;
+}
+```
+
 
 Output:
+```
+5
+10 20 30 40 50
+30
 
-//paste your output here
-
+10 -> 20 -> 40 -> 50 -> NULL
+```
 
 
 

@@ -308,12 +308,23 @@ struct Node* createNode(int data) {
     return newNode;
 }
 
+void insertEnd(struct Node** head, int data) {
+    struct Node* newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+    struct Node* temp = *head;
+    while (temp->next) temp = temp->next;
+    temp->next = newNode;
+    newNode->prev = temp;
+}
+
 void insertAtPosition(struct Node** head, int data, int pos) {
     struct Node* newNode = createNode(data);
     if (pos == 1) {
         newNode->next = *head;
-        if (*head != NULL)
-            (*head)->prev = newNode;
+        if (*head != NULL) (*head)->prev = newNode;
         *head = newNode;
         return;
     }
@@ -331,10 +342,7 @@ void insertAtPosition(struct Node** head, int data, int pos) {
 
     newNode->next = temp->next;
     newNode->prev = temp;
-
-    if (temp->next != NULL)
-        temp->next->prev = newNode;
-
+    if (temp->next != NULL) temp->next->prev = newNode;
     temp->next = newNode;
 }
 
@@ -350,13 +358,19 @@ int main() {
     struct Node* head = NULL;
     int n, val, data, pos;
 
-    scanf("%d", &n); // number of initial nodes
+    scanf("%d", &n); 
     for (int i = 0; i < n; i++) {
         scanf("%d", &val);
-        insertAtPosition(&head, val, i + 1); // insert at end
+        insertEnd(&head, val);
     }
 
-    scanf("%d %d",
+    scanf("%d %d", &data, &pos); 
+    insertAtPosition(&head, data, pos);
+
+    display(head);
+    return 0;
+}
+
 
 ```
 Output:
